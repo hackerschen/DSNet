@@ -14,12 +14,23 @@ We present DSNet, an mannully designed semantic segmentation network with not on
   <img width="1200", src="./network.png">
 </div>
 
-## Here is our speed-accuracy comparison on the weld seam dataset.
+## Here is our speed-accuracy comparison on the weld seam dataset
 <div align="center">
   <img width="1200", src="./experiment.png">
 </div>
 
-## Here is our speed-accuracy comparison on the weld seam dataset.
+## Prerequisites
 * Pytorch 2.1
 * Python 3.8
 * NVIDIA GPU
+
+## Installation
+* Clone this repo:
+```
+git clone https://github.com/hackerschen/DSNet.git
+cd DSNet
+```
+* Install dependencies:
+```
+pip install -r requirements.txt
+```
