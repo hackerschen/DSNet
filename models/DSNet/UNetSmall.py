@@ -2,15 +2,14 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 
-from models.RewriteUnext.dwmlp import ChanLayerNorm, PatchModule, DSMEncoder, DSMEncoderMult
+from .dwmlp import ChanLayerNorm, PatchModule, DSMEncoder, DSMEncoderMult
 
 __all__ = ['UNext_impr_m']
 
 from timm.models.layers import trunc_normal_
 import math
 
-class UNext_impr_rapid(nn.Module):
-    ## Conv 3 + MLP 2 + shifted MLP
+class DSNet(nn.Module):
     def __init__(self, num_classes, input_channels=3, expandOut=8, embed_dims=[16, 24, 40, 80, 112],
                  encoder1_kernel=3, encoder2_kernel=3, encoder3_kernel=3, factor1=4, factor2=4, factor3=4):
         super().__init__()
@@ -33,7 +32,6 @@ class UNext_impr_rapid(nn.Module):
         factor4 = 4
         self.block1 = DSMEncoder(embed_dims[3], embed_dims[3], kernel_size=3, factor=factor4, p=0.)
 
-        # 5 2  或许  3 1 效果会更好？
         self.block2Before = nn.Conv2d(embed_dims[4], embed_dims[4], kernel_size=3, padding=1, groups=embed_dims[4])
         self.block2 = GlobalSparseAttn(embed_dims[4], attn_drop=0., proj_drop=0.)
 
